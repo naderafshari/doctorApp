@@ -14,13 +14,14 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "module": "es2015",
+    "baseUrl": "./"
   },
   "include": [
     "src/**/*"
   ],
   "files": [
-      // For all widgets used, add the relevant .ts file.
-      "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid.ts"
+    "node_modules/jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid.ts"
   ]
 }
