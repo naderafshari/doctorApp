@@ -28,17 +28,17 @@ export class SchedulerComponent implements OnInit, AfterViewInit {
   source: any;
   sub: any;
   printButton: any = null;
+  //these fields are predefined and cannot be changed
   appointmentDataFields: any = {
     from: 'start',
-      to: 'end',
-      id: 'id',
-      description: 'description',
-      location: 'location',
-      subject: 'subject',
-      resourceId: 'calendar',
-      style: 'style',
-      status: 'status'
-    };
+    to: 'end',
+    id: 'id',
+    test: 'test',
+    description: 'status',
+    location: 'room',
+    subject: 'subject',
+    resourceId: 'therapist',
+  };
 
   @ViewChild('schedulerReference') scheduler: jqxSchedulerComponent;
 
@@ -74,7 +74,7 @@ export class SchedulerComponent implements OnInit, AfterViewInit {
                 resources:
                 {
                     colorScheme: 'scheme05',
-                    dataField: 'calendar',
+                    dataField: 'therapist',
                     source: new jqx.dataAdapter(this.source)
                 },
                 views:
@@ -192,13 +192,60 @@ editDialogCreate = (dialog, fields, editAppointment) => {
     // hide color option
     fields.colorContainer.hide();
     fields.subjectLabel.html('Title');
-    fields.locationLabel.html('Where');
+    fields.locationLabel.html('Room');
     fields.fromLabel.html('Start');
     fields.toLabel.html('End');
-    fields.resourceLabel.html('Room');
+    fields.resourceLabel.html('Therapist');
     // show resource option
     fields.resourceContainer.show();
-    
+/*
+    var priceField = ''
+    var personsField = ""
+    priceField += "<div>"
+    priceField += "<div class='jqx-scheduler-edit-dialog-label'>Price</div>"
+    priceField += "<div class='jqx-scheduler-edit-dialog-field'><input type='number' id='price' step='0.01' /></div>"
+    priceField += "</div>"
+    personsField += "<div>"
+    personsField += "<div class='jqx-scheduler-edit-dialog-label'>Persons</div>"
+    personsField += "<div class='jqx-scheduler-edit-dialog-field'><input type='number' id='persons' /></div>"
+    personsField += "</div>"
+
+    var i = 0;
+
+    $('#dialogscheduler').children('div').each(function () { 
+        // loop trough the div's (only first level childs) elements in dialogscheduler
+        i += 1;
+        if (i == 2) { // places the field in the third position.
+        $(this).after(priceField);
+        $(this).after(personsField);
+        };
+    })
+*/
+/*
+    var test = ""
+    test += "<div>"
+    test += "<div class=’jqx-scheduler-edit-dialog-label’>Test</div>"
+    test += "<div class=’jqx-scheduler-edit-dialog-field’>"
+    test += "<input class=’jqx-widget-content jqx-input jqx-widget jqx-rc-all’ style=’width: 100%; height: 25px; box-sizing: border-box;’ type=’text’>"
+    test += "</div>"
+    test += "</div>"
+    fields.toContainer.append(test)
+    */
+    let options = ["Orange", "Rancho"];
+    var teacher = ''
+    teacher += '<div>'
+    teacher +=  "<div class='jqx-scheduler-edit-dialog-label'>Office Location</div>'"
+    teacher +=         '<div class="jqx-scheduler-edit-dialog-field">'
+    teacher +=             '<select class="jqx-widget jqx-rc-all" style="width: 100%; height: 32px; box-sizing: border-box;">'
+    for(let i = 0; i<options.length; i++ ) {
+       teacher +=                '<option>' +  options[i] + '</option>'
+    }
+    teacher +=             '</select>'
+    teacher +=             '<input class="jqx-widget-content jqx-widget-content-metro jqx-input jqx-input-metro jqx-widget jqx-widget-metro jqx-rc-all jqx-rc-all-metro" data-label="teacher" type="text" style="width: 100%; height: 25px; box-sizing: border-box;">'
+    teacher +=         '</div>'
+    teacher +=     '</div>'
+    fields.subjectContainer.append(teacher);
+
     const buttonElement = document.createElement('BUTTON');
     buttonElement.innerText = 'Print';
     buttonElement.style.cssFloat = 'right';
@@ -239,7 +286,7 @@ editDialogCreate = (dialog, fields, editAppointment) => {
             '<td>' + fields.location.val() + '</td>' +
             '</tr>' +
             '<tr>' +
-            '<td class=\'label\'>Calendar</td>' +
+            '<td class=\'label\'>Therapist</td>' +
             '<td>' + fields.resource.val() + '</td>' +
             '</tr>'
             + '</table>';
@@ -343,28 +390,28 @@ editDialogCreate = (dialog, fields, editAppointment) => {
 
   generateCannedSlots(): any {
     const slot1 = {
-        id: 'id1', description: 'George brings projector ', location: 'TBD', subject: 'Quarterly Project', calendar: 'Room 1',
-        start: new Date(2016, 10, 23, 9, 0, 0), end: new Date(2016, 10, 23, 16, 0, 0)
+        id: 'id1', notes: 'George brings projector ', location: 'TBD', subject: 'Quarterly Project', room: 'Room 1',
+        start: new Date(2018, 10, 23, 9, 0, 0), end: new Date(2018, 10, 23, 16, 0, 0)
     };
     const slot2 = {
-        id: 'id2', description: '', location: 'SP Room1', subject: 'IT Group Mtg.', calendar: 'Room 2',
-        start: new Date(2016, 10, 24, 10, 0, 0), end: new Date(2016, 10, 24, 15, 0, 0)
+        id: 'id2', notes: '', location: 'SP Room1', subject: 'IT Group Mtg.', room: 'Room 2',
+        start: new Date(2018, 10, 24, 10, 0, 0), end: new Date(2018, 10, 24, 15, 0, 0)
     };
     const slot3 = {
-        id: 'id3', description: '', location: 'OR Room2', subject: 'Course Social Media', calendar: 'Room 3',
-        start: new Date(2016, 10, 27, 11, 0, 0), end: new Date(2016, 10, 27, 13, 0, 0)
+        id: 'id3', notes: '', location: 'OR Room2', subject: 'Course Social Media', room: 'Room 3',
+        start: new Date(2018, 10, 27, 11, 0, 0), end: new Date(2018, 10, 27, 13, 0, 0)
     };
     const slot4 = {
-        id: 'id4', description: '', location: 'SP Room3', subject: 'New Projects Planning', calendar: 'Room 2',
-        start: new Date(2016, 10, 23, 16, 0, 0), end: new Date(2016, 10, 23, 18, 0, 0)
+        id: 'id4', subjnotesect: '', location: 'SP Room3', subject: 'New Projects Planning', room: 'Room 2',
+        start: new Date(2018, 10, 23, 16, 0, 0), end: new Date(2018, 10, 23, 18, 0, 0)
     };
     const slot5 = {
-        id: 'id5', description: '', location: 'SP Room2', subject: 'Interview with James', calendar: 'Room 1',
-        start: new Date(2016, 10, 25, 15, 0, 0), end: new Date(2016, 10, 25, 17, 0, 0)
+        id: 'id5', notes: '', location: 'SP Room2', subject: 'Interview with James', room: 'Room 1',
+        start: new Date(2018, 10, 25, 15, 0, 0), end: new Date(2018, 10, 25, 17, 0, 0)
     };
     const slot6 = {
-        id: 'id6', description: '', location: 'OR Room1', subject: 'Interview with Nancy', calendar: 'Room 4',
-        start: new Date(2016, 10, 26, 14, 0, 0), end: new Date(2016, 10, 26, 16, 0, 0)
+        id: 'id6', notes: '', location: 'OR Room1', subject: 'Interview with Nancy', room: 'Room 4',
+        start: new Date(2018, 10, 26, 14, 0, 0), end: new Date(2018, 10, 26, 16, 0, 0)
     };
 
     const slots = {

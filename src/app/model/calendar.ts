@@ -21,10 +21,10 @@ export class DataClass {
   id = 'id';
   dataFields = [
     { name: 'id',           type: 'string' },
-    { name: 'description',  type: 'string' },
-    { name: 'location',     type: 'string' },
+    { name: 'room',         type: 'string' },
+    { name: 'therapist',    type: 'string' },
     { name: 'subject',      type: 'string' },
-    { name: 'calendar',     type: 'string' },
+    { name: 'notes',        type: 'string' },
     { name: 'start',        type: 'date' },
     { name: 'end',          type: 'date' },
     { name: 'status',       type: 'string'}
